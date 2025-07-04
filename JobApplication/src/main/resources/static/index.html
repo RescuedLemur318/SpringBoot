@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Application Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+    }
+
+    .checkbox-group label {
+      font-weight: normal;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form id="jobForm" action="/submit-application" method="post">
+    <h2>Job Application Form</h2>
+
+    <label for="fullname">Full Name</label>
+    <input type="text" id="fullname" name="fullname" required style="width: 450px;">
+
+    <label for="dob">Date of Birth</label>
+    <input type="date" id="dob" name="dob" required style="width: 100px;">
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" required style="width: 250px;">
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" required style="width: 350px;">
+
+    <label for="portfolio">Portfolio / GitHub / LinkedIn</label>
+    <input type="url" id="portfolio" name="portfolio" style="width: 350px;">
+
+    <label for="location">Current City & State</label>
+    <input type="text" id="location" name="location" required style="width: 250px;">
+
+    <label for="education">Education Background</label>
+    <textarea id="education" name="education" rows="6" required style="width: 600px;"></textarea>
+
+    <label>Professional Experience</label>
+    <div class="radio">
+      <label><input type="radio" name="experience" value="Fresher" onclick="toggleTextbox()">Fresher</label>
+      <label><input type="radio" name="experience" value="Experienced" onclick="toggleTextbox()"> Experienced</label>
+    </div>
+    <div id="experienceBox" style="display: none; margin-top: 10px;">
+      <label>Previous Company & Years of Experience:</label>
+      <input type="text" name="years" placeholder="e.g.,ABC company 2 years">
+    </div>
+    <style>
+      .radio {
+        display: flex;
+        gap: 30px;
+        margin-top: 10px;
+      }
+
+      .radio label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: normal;
+        margin: 0;
+      }
+    </style>
+
+    <label>Technical Skills</label>
+    <div class="checkbox-group" id="skills-group">
+      <label><input type="checkbox" name="skills" value="MS Office"> MS Office</label>
+      <label><input type="checkbox" name="skills" value="Excel"> Excel</label>
+      <label><input type="checkbox" name="skills" value="HTML/CSS"> HTML/CSS</label>
+      <label><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label>
+      <label><input type="checkbox" name="skills" value="React"> React</label>
+      <label><input type="checkbox" name="skills" value="Node.js"> Node.js</label>
+      <label><input type="checkbox" name="skills" value="Git"> Git</label>
+      <label><input type="checkbox" name="skills" value="API"> API Integration</label>
+      <label><input type="checkbox" id="otherCheckbox" name="skills" value="Other"> Others</label>
+    </div>
+
+    <div id="otherSkillsField" style="display: none; margin-top: 10px;">
+      <label for="other-skills">Please specify other skills:</label>
+      <input type="text" id="other-skills" name="other_skills" placeholder="e.g. Tailwind, Docker, Firebase">
+    </div>
+
+    <label for="projects">Describe a Web Project You Built</label>
+    <textarea id="projects" name="projects" rows="6" style="width: 600px;"></textarea>
+
+    <label for="reference">Reference (Optional)</label>
+    <textarea id="reference" name="reference" rows="2" style="width: 600px;"
+      placeholder="Name, Contact, Relationship"></textarea>
+
+    <label for="reason">Why do you want to join us?</label>
+    <textarea id="reason" name="reason" rows="3" required style="width: 600px;"></textarea>
+
+    <label><input type="checkbox" name="declaration" required> I confirm all information is accurate.</label>
+
+    <button type="submit">Submit Application</button>
+  </form>
+
+  <script>
+    function toggleTextbox() {
+      const experienceRadios = document.getElementsByName("experience");
+      const experienceBox = document.getElementById("experienceBox");
+
+      for (let i = 0; i < experienceRadios.length; i++) {
+        if (experienceRadios[i].checked && experienceRadios[i].value === "Experienced") {
+          experienceBox.style.display = "block";
+          return;
+        }
+      }
+      experienceBox.style.display = "none";
+    }
+
+    var form = document.getElementById("jobForm");
+    const otherCheckbox = document.getElementById('otherCheckbox');
+    const otherSkillsField = document.getElementById('otherSkillsField');
+
+    otherCheckbox.addEventListener('change', function () {
+      otherSkillsField.style.display = this.checked ? 'block' : 'none';
+      if (!this.checked) {
+        document.getElementById('other-skills').value = '';
+      }
+    });
+    
+    form.addEventListener("submit", function (e)
+     {
+      const name = document.getElementById("fullname").value.trim();
+      if (name === "") 
+      {
+        alert("Please enter your full name.");
+        e.preventDefault();
+      }
+    });
+    this.form = document.getElementById("jobForm");
+
+    const form=document.getElementById('myform')
+
+    
+  data.skills = skills;
+  data.declaration = formData.get("declaration") === "on"; 
+  fetch("http://localhost:8080/api/submit", 
+  {
+    method: "POST",
+    headers:
+    {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.text())
+    .then((msg) => alert(msg))
+    .catch((error) => console.error("Error:", error));
+  </script>
+  
+</body>
+</html>
